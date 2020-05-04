@@ -2,6 +2,7 @@ import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TimeUtil } from '../../util/time-util';
 import { formatDate } from '@angular/common';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -15,21 +16,65 @@ export class GithubService {
 
   fetch(token: string, username: string, email: string, branch: string) {
     const now = TimeUtil.now();
-    const from = formatDate(TimeUtil.addDays(now, -7), GithubGraphQLQuery.TIME_FORMAT, this.locale);
+    const from = formatDate(TimeUtil.addDays(now, -365), GithubGraphQLQuery.TIME_FORMAT, this.locale);
     const to = formatDate(now, GithubGraphQLQuery.TIME_FORMAT, this.locale);
-    this.http.post('https://api.github.com/graphql',
+    return this.http.post<CommitsQueryResponse>('https://api.github.com/graphql',
       {
         query: GithubGraphQLQuery.commits(username, email, branch, from, to)
       },
       {
         headers: {Authorization: `bearer ${token}`}
       }
-    ).subscribe(res => console.log(res));
+    ).pipe(map(res => {
+      return res.data.user.contributionsCollection.commitContributionsByRepository
+        .map(contribution => {
+          return new RepositoryModel(
+            contribution.repository.name,
+            contribution.repository?.ref.target.history.nodes.map(node => new CommitModel(node.message))
+          );
+        });
+    }));
   }
 }
 
+export class RepositoryModel {
+  constructor(
+    readonly name: string,
+    readonly commits: CommitModel[]
+  ) {
+  }
+}
+
+export class CommitModel {
+  constructor(
+    readonly message: string
+  ) {
+  }
+}
+
+type CommitsQueryResponse = {
+  data: {
+    user: {
+      contributionsCollection: {
+        commitContributionsByRepository: {
+          repository: {
+            name: string, ref: {
+              target: {
+                history: {
+                  nodes: { message: string }[]
+                }
+              }
+            }
+          }
+        }[]
+      }
+    }
+  }
+};
+
 class GithubGraphQLQuery {
   static TIME_FORMAT = 'yyyy-MM-ddTHH:mm:ssZ';
+
   static commits(name: string, email: string, branch: string, from: string, to: string) {
     return `{
       user(login: "${name}") {

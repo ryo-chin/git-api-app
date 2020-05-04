@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule)
   },
+  {
+    path: 'commits',
+    loadChildren: () => import('./features/commits/commits.module').then(m => m.CommitsModule)
+  },
 ];
 
 @NgModule({

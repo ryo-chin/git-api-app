@@ -3,18 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonModule } from 'primeng';
+import { ButtonModule, DataViewModule } from 'primeng';
 import { HttpClientModule } from '@angular/common/http';
+import { CommitListPageComponent } from './features/commits/pages/commit-list-page/commit-list-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CommitListPageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ButtonModule
+    ButtonModule,
+    DataViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]
