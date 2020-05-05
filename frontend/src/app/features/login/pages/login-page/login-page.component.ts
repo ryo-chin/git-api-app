@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase';
-import { GithubService } from '../../../../service/github-service';
-import { FirebaseService } from '../../../../service/firebase-service';
 import { Router } from '@angular/router';
-import OAuthCredential = firebase.auth.OAuthCredential;
+import { AuthService } from '../../../../service/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -13,26 +10,22 @@ import OAuthCredential = firebase.auth.OAuthCredential;
 export class LoginPageComponent implements OnInit {
 
   constructor(
-    private firebaseService: FirebaseService,
-    private githubService: GithubService,
+    private authService: AuthService,
     private router: Router
   ) {
   }
 
   ngOnInit() {
-    firebase.auth().getRedirectResult().then(result => {
-      if (!result.credential) {
-        return;
-      }
-      const oauthCredential = result.credential as OAuthCredential;
-      localStorage.setItem('accessToken', oauthCredential.accessToken);
-      localStorage.setItem('username', result.additionalUserInfo.username);
-      localStorage.setItem('email', result.user.email);
+    if (this.authService.isAuthenticated()) {
       this.router.navigateByUrl('commits');
-    }).catch(error => console.log(error));
+      return;
+    }
+    this.authService.authenticateIfSignedIn(() => {
+      this.router.navigateByUrl('commits');
+    });
   }
 
   signin() {
-    this.firebaseService.singnInWithRedirect();
+    this.authService.signInWithRedirect();
   }
 }

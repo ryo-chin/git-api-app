@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'commits',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./features/commits/commits.module').then(m => m.CommitsModule)
   },
 ];
@@ -21,4 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

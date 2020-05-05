@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../../../service/firebase-service';
 import { GithubService, RepositoryModel } from '../../../../service/github-service';
+import { AuthService } from '../../../../service/auth.service';
 
 @Component({
   selector: 'app-commit-list-page',
@@ -11,17 +11,14 @@ export class CommitListPageComponent implements OnInit {
   repositories: RepositoryModel[];
 
   constructor(
-    private firebaseService: FirebaseService,
-    private githubService: GithubService
+    private githubService: GithubService,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit(): void {
-    const username = localStorage.getItem('username');
-    const email = localStorage.getItem('email');
-    const accessToken = localStorage.getItem('accessToken');
-    this.githubService.fetch(accessToken, username, email, 'master').subscribe(res => {
-      console.log(res);
+    const user = this.authService.currentUser;
+    this.githubService.fetch(user.token, user.userName, user.email, 'master').subscribe(res => {
       this.repositories = res;
     });
   }
