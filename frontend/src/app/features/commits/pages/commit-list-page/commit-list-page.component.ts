@@ -18,7 +18,7 @@ export class CommitListPageComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.authService.currentUser;
-    this.githubService.fetch(user.token, user.userName, user.email, 'master').subscribe(res => {
+    this.githubService.fetchCommits(user.token, user.userName, user.email, 'master').subscribe(res => {
       this.repositories = res;
     });
   }

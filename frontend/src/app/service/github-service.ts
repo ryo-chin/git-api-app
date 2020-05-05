@@ -14,7 +14,7 @@ export class GithubService {
   ) {
   }
 
-  fetch(token: string, username: string, email: string, branch: string) {
+  fetchCommits(token: string, username: string, email: string, branch: string) {
     const now = TimeUtil.now();
     const from = formatDate(TimeUtil.addDays(now, -365), GithubGraphQLQuery.TIME_FORMAT, this.locale);
     const to = formatDate(now, GithubGraphQLQuery.TIME_FORMAT, this.locale);
@@ -30,7 +30,12 @@ export class GithubService {
         .map(contribution => {
           return new RepositoryModel(
             contribution.repository.name,
-            contribution.repository?.ref.target.history.nodes.map(node => new CommitModel(node.message))
+            contribution.repository?.ref.target.history.nodes.map(node => new CommitModel(
+              node.message,
+              node.messageBody,
+              node.commitUrl,
+              node.committedDate
+            ))
           );
         });
     }));
@@ -47,7 +52,10 @@ export class RepositoryModel {
 
 export class CommitModel {
   constructor(
-    readonly message: string
+    readonly message: string,
+    readonly messageBody: string,
+    readonly commitUrl: string,
+    readonly committedDate: string
   ) {
   }
 }
@@ -61,7 +69,12 @@ type CommitsQueryResponse = {
             name: string, ref: {
               target: {
                 history: {
-                  nodes: { message: string }[]
+                  nodes: {
+                    message: string,
+                    messageBody: string,
+                    commitUrl: string,
+                    committedDate: string
+                  }[]
                 }
               }
             }
@@ -93,6 +106,9 @@ class GithubGraphQLQuery {
                     ) {
                       nodes {
                         message
+                        messageBody
+                        commitUrl
+                        committedDate
                       }
                     }
                   }

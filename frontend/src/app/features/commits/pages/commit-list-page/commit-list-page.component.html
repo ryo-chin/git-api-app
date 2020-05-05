@@ -3,7 +3,7 @@
     <p-header>{{repository.name}}</p-header>
     <ng-template let-commit pTemplate="listItem">
       <div class="ui-g-12">
-        {{commit.message}}
+        <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate}}</a>
       </div>
     </ng-template>
   </p-dataView>
