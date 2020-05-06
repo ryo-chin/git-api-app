@@ -1,6 +1,5 @@
-import { Inject, Injectable, LOCALE_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TimeUtil } from '../../util/time-util';
 import { formatDate } from '@angular/common';
 import { map } from 'rxjs/operators';
 
@@ -10,17 +9,13 @@ import { map } from 'rxjs/operators';
 export class GithubService {
   constructor(
     private http: HttpClient,
-    @Inject(LOCALE_ID) private locale: string
   ) {
   }
 
-  fetchCommits(token: string, username: string, email: string, branch: string) {
-    const now = TimeUtil.now();
-    const from = formatDate(TimeUtil.addDays(now, -365), GithubGraphQLQuery.TIME_FORMAT, this.locale);
-    const to = formatDate(now, GithubGraphQLQuery.TIME_FORMAT, this.locale);
+  fetchCommits(token: string, username: string, email: string, condition: RepositorySearchCondition) {
     return this.http.post<CommitsQueryResponse>('https://api.github.com/graphql',
       {
-        query: GithubGraphQLQuery.commits(username, email, branch, from, to)
+        query: GithubGraphQLQuery.commits(username, email, condition.branch, condition.from, condition.to)
       },
       {
         headers: {Authorization: `bearer ${token}`}
@@ -39,6 +34,25 @@ export class GithubService {
           );
         });
     }));
+  }
+}
+
+export class RepositorySearchCondition {
+  from: string;
+  to: string;
+
+  constructor(
+    readonly locale: string,
+    readonly fromDate: Date,
+    readonly toDate: Date,
+    readonly branch: string = 'master'
+  ) {
+    this.from = this.formatDate(fromDate);
+    this.to = this.formatDate(toDate);
+  }
+
+  private formatDate(now) {
+    return formatDate(now, GithubGraphQLQuery.TIME_FORMAT, this.locale);
   }
 }
 

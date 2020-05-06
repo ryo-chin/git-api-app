@@ -1,5 +1,19 @@
+<form id="search-condition-form" class="ui-g-12 ui-md-4">
+  <div class="form-group">
+    <label for="date-range">Date Range</label>
+    <p-calendar id="date-range" name="rangeDates" inputStyleClass="range-dates-input"
+                [(ngModel)]="selectedRange"
+                selectionMode="range" dateFormat="yy/mm/dd"
+                [showButtonBar]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                [yearRange]="yearRange"
+    ></p-calendar>
+  </div>
+  <p-button label="Search" (onClick)="submit()"></p-button>
+</form>
 <ng-container *ngFor="let repository of repositories">
-  <p-dataView [value]="repository.commits">
+  <p-dataView class="repository-data-view" [value]="repository.commits">
     <p-header>{{repository.name}}</p-header>
     <ng-template let-commit pTemplate="listItem">
       <div class="ui-g-12">
