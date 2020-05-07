@@ -35,7 +35,7 @@ export class RepositorySearchForm {
     return new RepositorySearchCondition(
       locale,
       this.from,
-      this.to
+      TimeUtil.addDays(this.to, 1) // 翌00:00までを含めるために1日加える
     );
   }
 }
