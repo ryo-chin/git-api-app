@@ -17,7 +17,7 @@
     <p-header>{{repository.name}}</p-header>
     <ng-template let-commit pTemplate="listItem">
       <div class="ui-g-12">
-        <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate}}</a>
+        <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
       </div>
     </ng-template>
   </p-dataView>
