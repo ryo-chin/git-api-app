@@ -12,13 +12,21 @@
   </div>
   <p-button label="Search" (onClick)="submit()"></p-button>
 </form>
-<ng-container *ngFor="let repository of repositories">
-  <p-dataView class="repository-data-view" [value]="repository.commits">
-    <p-header>{{repository.name}}</p-header>
-    <ng-template let-commit pTemplate="listItem">
-      <div class="ui-g-12 commit-details">
-        <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
-      </div>
-    </ng-template>
-  </p-dataView>
+<ng-container *ngIf="!loading">
+  <ng-container *ngFor="let repository of repositories">
+    <p-dataView class="repository-data-view" [value]="repository.commits">
+      <p-header>{{repository.name}}</p-header>
+      <ng-template let-commit pTemplate="listItem">
+        <div class="ui-g-12 commit-details">
+          <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </ng-container>
 </ng-container>
+<div class="load-2" *ngIf="loading">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+</div>
+

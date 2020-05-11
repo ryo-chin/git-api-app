@@ -14,6 +14,7 @@ export class CommitListPageComponent implements OnInit {
   form: RepositorySearchForm;
   selectedRange: Date[];
   yearRange: string;
+  loading = false;
 
   constructor(
     private githubService: GithubService,
@@ -37,8 +38,10 @@ export class CommitListPageComponent implements OnInit {
   }
 
   private fetch(user) {
+    this.loading = true;
     this.githubService.fetchCommits(user.token, user.userName, user.email, this.form.toInput(this.locale)).subscribe(res => {
       this.repositories = res;
+      this.loading = false;
     });
   }
 }
