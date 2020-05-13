@@ -14,14 +14,18 @@
 </form>
 <ng-container *ngIf="!loading">
   <ng-container *ngFor="let repository of repositories">
-    <p-dataView class="repository-data-view" [value]="repository.commits">
-      <p-header>{{repository.name}}</p-header>
-      <ng-template let-commit pTemplate="listItem">
-        <div class="ui-g-12 commit-details">
-          <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
-        </div>
-      </ng-template>
-    </p-dataView>
+    <div class="repository-container">
+      <div class="repository-header">{{repository.name}}</div>
+      <div class="repository-data-view">
+        <ul>
+          <li class="commit-item" *ngFor="let commit of repository.commits">
+            <div class="commit-details">
+              <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </ng-container>
 </ng-container>
 <div class="load-2" *ngIf="loading">
