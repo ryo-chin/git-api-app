@@ -1,8 +1,9 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
-import { GithubService, RepositoryModel } from '../../../../service/github-service';
+import { GithubService, RepositoryModel, RepositorySearchCondition } from '../../../../service/github-service';
 import { AuthService } from '../../../../service/auth.service';
 import { RepositorySearchForm } from './form/repository-search.form';
 import { TimeUtil } from '../../../../../util/time-util';
+import { UserInfo } from '../../../../store/auth-store';
 
 @Component({
   selector: 'app-commit-list-page',
@@ -28,18 +29,17 @@ export class CommitListPageComponent implements OnInit {
     this.selectedRange = this.form.rangeDatesValue;
     const currentYear = TimeUtil.now().getFullYear();
     this.yearRange = `${currentYear - 1}:${currentYear}`;
-    this.fetch(this.authService.currentUser);
+    this.fetch(this.form.toInput(this.locale), this.authService.currentUser);
   }
 
   submit() {
-    console.log(this.selectedRange);
     this.form.rangeDates.setValue(this.selectedRange);
-    this.fetch(this.authService.currentUser);
+    this.fetch(this.form.toInput(this.locale), this.authService.currentUser);
   }
 
-  private fetch(user) {
+  private fetch(input: RepositorySearchCondition, user: UserInfo) {
     this.loading = true;
-    this.githubService.fetchCommits(user.token, user.userName, user.email, this.form.toInput(this.locale)).subscribe(res => {
+    this.githubService.fetchCommits(user.token, user.userName, user.email, input).subscribe(res => {
       this.repositories = res;
       this.loading = false;
     });
