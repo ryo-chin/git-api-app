@@ -1,4 +1,5 @@
 $fontColor: white;
+$notSelectedColor: #8d8d8d;
 
 :host {
   display: flex;
@@ -43,10 +44,11 @@ $fontColor: white;
   }
 
   > a {
-    color: $fontColor;
+    color: $notSelectedColor;
     display: block;
 
     &:hover {
+      color: $fontColor;
       background-color: #343434;
       cursor: pointer;
     }
