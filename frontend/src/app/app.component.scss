@@ -1,0 +1,36 @@
+$fontColor: white;
+
+:host {
+  display: flex;
+
+  > .side-nav-bar {
+    flex: 0 0 auto;
+    background-color: #4c4c4c;
+    color: $fontColor;
+    font-weight: bold;
+  }
+
+  > main {
+    position: relative;
+    height: 100vh;
+    width: 100vh;
+    padding: 16px;
+    flex: 1 1 auto;
+  }
+}
+
+.side-nav-item {
+  > * {
+    padding: 10px;
+  }
+
+  > a {
+    color: $fontColor;
+    display: block;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      background-color: #343434;
+    }
+  }
+}
