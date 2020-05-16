@@ -39,18 +39,34 @@ $notSelectedColor: #8d8d8d;
 }
 
 .side-nav-item {
-  > * {
+  & > a, & > span {
     padding: 10px;
+    display: flex;
+    align-items: center;
   }
 
-  > a {
-    color: $notSelectedColor;
-    display: block;
+  & .icon {
+    margin-right: 10px;
+  }
 
+  &.selectable {
+    color: $notSelectedColor;
     &:hover {
       color: $fontColor;
       background-color: #343434;
       cursor: pointer;
+    }
+
+    > a {
+      color: inherit;
+      // [NOTE] 親要素のサイズに合わせてhrefを有効にするための設定
+      &::after {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: auto;
+        background-color: transparent;
+      }
     }
   }
 }
