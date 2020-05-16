@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
+  isOpenedNavBar = true;
 
   ngOnInit() {
     this.initializeFirebase();
@@ -16,5 +17,13 @@ export class AppComponent implements OnInit {
 
   private initializeFirebase() {
     firebase.initializeApp(environment.firebase);
+  }
+
+  toggleNavBar() {
+    this.isOpenedNavBar = !this.isOpenedNavBar;
+  }
+
+  clickNavItem($event: MouseEvent) {
+    $event.stopPropagation();
   }
 }
