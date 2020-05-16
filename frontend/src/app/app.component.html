@@ -1,15 +1,15 @@
-<div class="side-nav-bar" (click)="toggleNavBar()">
+<div class="side-nav-bar" [ngClass]="{ 'opened' : isOpenedNavBar }" (click)="toggleNavBar()">
   <ul class="side-nav-items side-nav-items--header">
     <li class="side-nav-item">
-      <span *ngIf="!isOpenedNavBar">App</span>
-      <span *ngIf="isOpenedNavBar">Git API App ver.1</span>
+      <span class="closed-title">App</span>
+      <span class="closable">Git API App ver.1</span>
     </li>
   </ul>
   <ul class="side-nav-items side-nav-items--contents">
     <li class="side-nav-item selectable" (click)="clickNavItem($event)">
       <a href="http://localhost:4200/commits">
         <span class="icon material-icons">list_alt</span>
-        <span *ngIf="isOpenedNavBar">Commits</span>
+        <span class="closable">Commits</span>
       </a>
     </li>
   </ul>
@@ -17,7 +17,7 @@
     <li class="side-nav-item selectable" (click)="clickNavItem($event)">
       <a>
         <span class="icon material-icons">account_circle</span>
-        <span *ngIf="isOpenedNavBar">Setting</span>
+        <span class="closable">Setting</span>
       </a>
     </li>
   </ul>

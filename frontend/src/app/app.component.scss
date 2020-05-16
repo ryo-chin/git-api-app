@@ -6,25 +6,49 @@ $notSelectedColor: #8d8d8d;
 
   > .side-nav-bar {
     flex: 0 0 auto;
-    background-color: #4c4c4c;
-    color: $fontColor;
-    font-weight: bold;
     height: 100vh;
-
+    width: 60px;
+    &.opened {
+      width: 200px;
+    }
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+    background-color: #4c4c4c;
+    color: $fontColor;
+    font-weight: bold;
+
     > .side-nav-items--header {
       flex: 0 1 auto;
     }
-
     > .side-nav-items--contents {
       flex: 1 1 auto;
     }
-
     > .side-nav-items--footer {
       flex: 0 1 auto;
+    }
+
+    transition: width .3s ease-in-out;
+    & .side-nav-item {
+      & .closable {
+        display: none;
+      }
+
+      & .closed-title {
+        display: inherit;
+      }
+    }
+    &.opened {
+      .side-nav-item {
+        & .closable {
+          display: inherit;
+        }
+
+        & .closed-title {
+          display: none;
+        }
+      }
     }
   }
 
@@ -43,6 +67,11 @@ $notSelectedColor: #8d8d8d;
     padding: 10px;
     display: flex;
     align-items: center;
+  }
+
+  & span {
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   & .icon {
