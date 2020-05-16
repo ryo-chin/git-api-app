@@ -19,9 +19,7 @@
       <div class="repository-data-view">
         <ul>
           <li class="commit-item" *ngFor="let commit of repository.commits">
-            <div class="commit-details">
-              <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
-            </div>
+            <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
           </li>
         </ul>
       </div>
