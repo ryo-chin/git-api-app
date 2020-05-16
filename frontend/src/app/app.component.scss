@@ -33,6 +33,7 @@ $fontColor: white;
     width: 100vw;
     padding: 16px;
     flex: 1 1 auto;
+    overflow: auto;
   }
 }
 
@@ -44,6 +45,7 @@ $fontColor: white;
   > a {
     color: $fontColor;
     display: block;
+
     &:hover {
       background-color: #343434;
       cursor: pointer;
