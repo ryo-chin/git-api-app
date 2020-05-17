@@ -32,6 +32,9 @@ $overlayZIndex: 2;
       flex: 0 1 auto;
     }
 
+    &:hover {
+      cursor: pointer;
+    }
     transition: width .3s ease-in-out;
     & .side-nav-item {
       & .closable {
