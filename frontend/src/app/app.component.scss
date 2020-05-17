@@ -36,22 +36,22 @@ $overlayZIndex: 2;
       cursor: pointer;
     }
     transition: width .3s ease-in-out;
-    & .side-nav-item {
-      & .closable {
+    .side-nav-item {
+      .closable {
         display: none;
       }
 
-      & .closed-title {
+      .closed-title {
         display: inherit;
       }
     }
     &.opened {
       .side-nav-item {
-        & .closable {
+        .closable {
           display: inherit;
         }
 
-        & .closed-title {
+        .closed-title {
           display: none;
         }
       }
@@ -75,12 +75,12 @@ $overlayZIndex: 2;
     align-items: center;
   }
 
-  & span {
+  span {
     white-space: nowrap;
     overflow: hidden;
   }
 
-  & .icon {
+  .icon {
     margin-right: 10px;
   }
 
@@ -123,7 +123,7 @@ $overlayZIndex: 2;
     z-index: $overlayZIndex;
     bottom: calc(50%);
 
-    & .menu-item {
+    .menu-item {
       & > a, & > span {
         display: flex;
         align-items: center;
