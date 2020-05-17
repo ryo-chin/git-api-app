@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../service/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -8,11 +9,13 @@ import { AuthService } from '../../../../service/auth.service';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  isLoading$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {
+    this.isLoading$ = authService.isLoading$;
   }
 
   ngOnInit() {

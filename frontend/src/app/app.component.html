@@ -1,4 +1,4 @@
-<div *ngIf="authService.isAuthenticated$ | async" class="side-nav-bar" [ngClass]="{ 'opened' : isOpenedNavBar }" (click)="toggleNavBar()">
+<div *ngIf="isAuthenticated$ | async" class="side-nav-bar" [ngClass]="{ 'opened' : isOpenedNavBar }" (click)="toggleNavBar()">
   <ul class="side-nav-items side-nav-items--header">
     <li class="side-nav-item">
       <span class="closed-title">App</span>

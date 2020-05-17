@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment';
 import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
+  isAuthenticated$: Observable<boolean>;
   isOpenedNavBar = true;
   isOpenedSettingMenu = false;
 
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
+    this.isAuthenticated$ = authService.isAuthenticated$;
   }
 
   ngOnInit() {

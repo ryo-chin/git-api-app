@@ -1,4 +1,4 @@
-<div *ngIf="(authService.isLoading$ | async) else notLoading">
+<div *ngIf="(isLoading$ | async) else notLoading">
   <app-loading-wave></app-loading-wave>
 </div>
 <ng-template #notLoading>
