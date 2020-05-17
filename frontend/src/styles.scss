@@ -5,11 +5,15 @@
   width: 178px;
 }
 
-main {
-  margin: 20px;
-}
-
 ul {
   list-style-type: none;
   padding-inline-start: 0;
 }
+
+// App
+$primaryButtonColor: #28b947;
+$fontColor: white;
+$notSelectedColor: #8d8d8d;
+$sidebarBackgroundColor: #24292e;
+$sidebarHoveredBackgroundColor: #343434;
+$overlayZIndex: 2;

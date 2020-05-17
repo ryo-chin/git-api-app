@@ -1,8 +1,4 @@
-$fontColor: white;
-$notSelectedColor: #8d8d8d;
-$sidebarBackgroundColor: #4c4c4c;
-$sidebarHoveredBackgroundColor: #343434;
-$overlayZIndex: 2;
+@import '~src/styles.scss';
 
 :host {
   display: flex;

@@ -1,0 +1,17 @@
+@import '~src/styles.scss';
+
+button {
+  font-size: 14px;
+  padding: 0.429em 1em;
+  line-height: 1.5em;
+  border-radius: 3px;
+  &.btn-primary {
+    color: #fff;
+    background-color: $primaryButtonColor;
+
+    &:hover {
+      cursor: pointer;
+      background-color: darken($primaryButtonColor, 10%);
+    }
+  }
+}

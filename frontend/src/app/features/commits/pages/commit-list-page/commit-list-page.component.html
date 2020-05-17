@@ -1,5 +1,5 @@
-<form id="search-condition-form" class="ui-g-12 ui-md-4">
-  <div class="form-group">
+<form id="search-condition-form" class="ui-g-12 ui-md-4 app-form">
+  <div class="form-item">
     <label for="date-range">Date Range</label>
     <p-calendar id="date-range" name="rangeDates" inputStyleClass="range-dates-input"
                 [(ngModel)]="selectedRange"
@@ -10,7 +10,7 @@
                 [yearRange]="yearRange"
     ></p-calendar>
   </div>
-  <p-button label="Search" (onClick)="submit()"></p-button>
+  <app-button class="form-item" (onClick)="submit()">Search</app-button>
 </form>
 <ng-container *ngIf="!loading">
   <ng-container *ngFor="let repository of repositories">
@@ -19,7 +19,8 @@
       <div class="repository-data-view">
         <ul>
           <li class="commit-item" *ngFor="let commit of repository.commits">
-            <a [href]="commit.commitUrl" target="_blank">{{commit.message}} / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
+            <a [href]="commit.commitUrl" target="_blank">{{commit.message}}
+              / {{commit.committedDate | date: 'yyyy/MM/dd HH:mm:ss '}}</a>
           </li>
         </ul>
       </div>
