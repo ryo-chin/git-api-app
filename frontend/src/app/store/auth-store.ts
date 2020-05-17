@@ -1,7 +1,10 @@
+import { BehaviorSubject, Observable } from 'rxjs';
+
 export class AuthStore {
   TOKEN_KEY = 'token';
   USER_NAME_KEY = 'userName';
   EMAIL_KEY = 'email';
+  private _isAuthenticated$ = new BehaviorSubject(false);
 
   constructor() {
   }
@@ -10,6 +13,7 @@ export class AuthStore {
     this.setItem(this.TOKEN_KEY, info.token);
     this.setItem(this.EMAIL_KEY, info.email);
     this.setItem(this.USER_NAME_KEY, info.userName);
+    this._isAuthenticated$.next(true);
   }
 
   getUserInfo(): UserInfo | null {
@@ -37,6 +41,11 @@ export class AuthStore {
 
   clear() {
     localStorage.clear();
+    this._isAuthenticated$.next(false);
+  }
+
+  get isAuthenticated$(): Observable<boolean> {
+    return this._isAuthenticated$;
   }
 }
 

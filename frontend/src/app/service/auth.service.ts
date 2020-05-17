@@ -14,6 +14,10 @@ export class AuthService {
     return !!authStore.getToken();
   }
 
+  get isAuthenticated$() {
+    return authStore.isAuthenticated$;
+  }
+
   authenticateIfSignedIn(callbackFn: () => void) {
     firebase.auth().getRedirectResult().then(result => {
       if (!result.credential) {
