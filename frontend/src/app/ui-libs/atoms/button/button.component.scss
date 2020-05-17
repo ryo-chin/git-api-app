@@ -7,11 +7,11 @@ button {
   border-radius: 3px;
   &.btn-primary {
     color: #fff;
-    background-color: $primaryButtonColor;
+    background-color: $primaryColor;
 
     &:hover {
       cursor: pointer;
-      background-color: darken($primaryButtonColor, 10%);
+      background-color: darken($primaryColor, 10%);
     }
   }
 }
