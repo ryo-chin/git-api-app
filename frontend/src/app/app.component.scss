@@ -1,5 +1,8 @@
 $fontColor: white;
 $notSelectedColor: #8d8d8d;
+$sidebarBackgroundColor: #4c4c4c;
+$sidebarHoveredBackgroundColor: #343434;
+$overlayZIndex: 2;
 
 :host {
   display: flex;
@@ -15,7 +18,7 @@ $notSelectedColor: #8d8d8d;
     flex-direction: column;
     justify-content: space-between;
 
-    background-color: #4c4c4c;
+    background-color: $sidebarBackgroundColor;
     color: $fontColor;
     font-weight: bold;
 
@@ -82,11 +85,11 @@ $notSelectedColor: #8d8d8d;
     color: $notSelectedColor;
     &:hover {
       color: $fontColor;
-      background-color: #343434;
+      background-color: $sidebarHoveredBackgroundColor;
       cursor: pointer;
     }
 
-    > a {
+    & > a {
       color: inherit;
       // [NOTE] 親要素のサイズに合わせてhrefを有効にするための設定
       &::after {
@@ -95,6 +98,43 @@ $notSelectedColor: #8d8d8d;
         z-index: 1;
         pointer-events: auto;
         background-color: transparent;
+      }
+    }
+  }
+}
+
+.overlay-panel {
+  position: relative;
+  left: 100%;
+  color: $fontColor;
+
+  & > .menu {
+    position: absolute;
+    background-color: $sidebarBackgroundColor;
+    box-shadow: 0 0.15em 0.25em rgba(black, 0.25);
+    min-width: 10ch;
+    z-index: $overlayZIndex;
+    bottom: calc(50%);
+
+    & .menu-item {
+      & > a, & > span {
+        display: flex;
+        align-items: center;
+        padding: 0.625em;
+      }
+
+      &.selectable {
+        color: $notSelectedColor;
+        line-height: 1.5em;
+        &:hover {
+          color: $fontColor;
+          background-color: $sidebarHoveredBackgroundColor;
+          cursor: pointer;
+        }
+
+        & > a {
+          color: inherit;
+        }
       }
     }
   }

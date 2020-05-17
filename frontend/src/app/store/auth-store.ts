@@ -34,6 +34,10 @@ export class AuthStore {
   private setItem(key: string, value: string) {
     return localStorage.setItem(key, value);
   }
+
+  clear() {
+    localStorage.clear();
+  }
 }
 
 export type UserInfo = {

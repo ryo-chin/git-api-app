@@ -36,4 +36,8 @@ export class AuthService {
   get currentUser(): UserInfo | null {
     return authStore.getUserInfo();
   }
+
+  logout() {
+    authStore.clear();
+  }
 }
