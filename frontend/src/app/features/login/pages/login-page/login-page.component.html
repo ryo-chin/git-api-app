@@ -1,1 +1,6 @@
-<button pButton type="button" label="Githubアカウントでログイン" (click)="signin()"></button>
+<div *ngIf="(authService.isLoading$ | async) else notLoading">
+  ローディング中
+</div>
+<ng-template #notLoading>
+  <button pButton type="button" label="Githubアカウントでログイン" (click)="signin()"></button>
+</ng-template>

@@ -5,8 +5,10 @@ export class AuthStore {
   USER_NAME_KEY = 'userName';
   EMAIL_KEY = 'email';
   private _isAuthenticated$ = new BehaviorSubject(false);
+  private _isLoading$ = new BehaviorSubject(false);
 
   constructor() {
+    this._isAuthenticated$.next(!!this.getToken());
   }
 
   saveUserInfo(info: UserInfo) {
@@ -46,6 +48,14 @@ export class AuthStore {
 
   get isAuthenticated$(): Observable<boolean> {
     return this._isAuthenticated$;
+  }
+
+  get isLoading$(): Observable<boolean> {
+    return this._isLoading$;
+  }
+
+  setLoading(loading: boolean) {
+    this._isLoading$.next(loading);
   }
 }
 

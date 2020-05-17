@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { authStore, UserInfo } from '../store/auth-store';
 import * as firebase from 'firebase';
+import { from, Observable, of } from 'rxjs';
+import { catchError, filter, finalize, map, tap } from 'rxjs/operators';
 import OAuthCredential = firebase.auth.OAuthCredential;
 
 @Injectable({
@@ -18,19 +20,27 @@ export class AuthService {
     return authStore.isAuthenticated$;
   }
 
-  authenticateIfSignedIn(callbackFn: () => void) {
-    firebase.auth().getRedirectResult().then(result => {
-      if (!result.credential) {
-        return;
-      }
-      const oauthCredential = result.credential as OAuthCredential;
-      authStore.saveUserInfo({
-        userName: result.additionalUserInfo.username,
-        email: result.user.email,
-        token: oauthCredential.accessToken
-      });
-      callbackFn();
-    }).catch(error => console.log(error));
+  get isLoading$() {
+    return authStore.isLoading$;
+  }
+
+  authenticateIfSignedIn(): Observable<void> {
+    authStore.setLoading(true);
+    return from(firebase.auth().getRedirectResult())
+      .pipe(
+        filter(res => !!res.credential),
+        map(res => ({
+          userName: res.additionalUserInfo.username,
+          email: res.user.email,
+          token: (res.credential as OAuthCredential).accessToken
+        })),
+        tap(user => authStore.saveUserInfo(user)),
+        catchError(error => {
+          console.log(error);
+          return of(error);
+        }),
+        finalize(() => authStore.setLoading(false))
+      );
   }
 
   signInWithRedirect() {
