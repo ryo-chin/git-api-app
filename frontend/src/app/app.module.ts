@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommitListPageComponent } from './features/commits/pages/commit-list-page/commit-list-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UiLibsModule } from './ui-libs/ui-libs.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DataViewModule,
     CalendarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UiLibsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
