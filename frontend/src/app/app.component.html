@@ -14,12 +14,12 @@
     </li>
   </ul>
   <ul class="side-nav-items side-nav-items--footer">
-    <li class="side-nav-item selectable" (click)="clickNavItem($event)">
-      <a>
+    <li class="side-nav-item selectable" (mouseenter)="toggleSettingMenu()" (mouseleave)="toggleSettingMenu()">
+      <span>
         <span class="icon material-icons">account_circle</span>
         <span class="closable">Setting</span>
-      </a>
-      <div class="overlay-panel">
+      </span>
+      <div class="overlay-panel" [ngClass]="{ 'opened' : isOpenedSettingMenu }">
         <ul class="menu">
           <li class="menu-item selectable">
             <a href="#logout" (click)="logout()">

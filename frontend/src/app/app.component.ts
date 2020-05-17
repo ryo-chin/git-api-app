@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'frontend';
   isOpenedNavBar = true;
+  isOpenedSettingMenu = false;
 
   constructor(
     private authService: AuthService,
@@ -29,6 +30,10 @@ export class AppComponent implements OnInit {
 
   toggleNavBar() {
     this.isOpenedNavBar = !this.isOpenedNavBar;
+  }
+
+  toggleSettingMenu() {
+    this.isOpenedSettingMenu = !this.isOpenedSettingMenu;
   }
 
   clickNavItem($event: MouseEvent) {

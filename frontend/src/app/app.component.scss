@@ -107,6 +107,10 @@ $overlayZIndex: 2;
   position: relative;
   left: 100%;
   color: $fontColor;
+  display: none;
+  &.opened {
+    display: block;
+  }
 
   & > .menu {
     position: absolute;
