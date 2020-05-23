@@ -1,8 +1,16 @@
-<form id="search-condition-form" class="ui-g-12 ui-md-4 app-form">
+<div class="app-toolbar">
+  <div class="app-toolbar-title">
+    <span>Commits Explorer</span>
+  </div>
+  <div class="app-toolbar-form">
+    <app-dropdown [selectItems]="dateRanges" [(ngModel)]="selectedRange"></app-dropdown>
+  </div>
+</div>
+<div role="form" id="search-condition-form" class="ui-g-12 ui-md-4 app-form">
   <div class="form-item">
     <label for="date-range">Date Range</label>
-    <p-calendar id="date-range" name="rangeDates" inputStyleClass="range-dates-input"
-                [(ngModel)]="selectedRange"
+    <p-calendar id="date-range" inputStyleClass="range-dates-input"
+                [(ngModel)]="form.rangeDatesValue"
                 selectionMode="range" dateFormat="yy/mm/dd"
                 [showButtonBar]="true"
                 [monthNavigator]="true"
@@ -11,7 +19,7 @@
     ></p-calendar>
   </div>
   <app-button class="form-item" (onClick)="submit()">Search</app-button>
-</form>
+</div>
 <ng-container *ngIf="!loading">
   <ng-container *ngFor="let repository of repositories">
     <div class="repository-container">

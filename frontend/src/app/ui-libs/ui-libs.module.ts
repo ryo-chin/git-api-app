@@ -1,23 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingWaveComponent } from './atoms/loading-wave/loading-wave.component';
-import { ButtonModule } from 'primeng';
+import { ButtonModule, DropdownModule } from 'primeng';
 import { ButtonComponent } from './atoms/button/button.component';
+import { DropdownComponent } from './atoms/dropdown/dropdown.component';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
     LoadingWaveComponent,
-    ButtonComponent
+    ButtonComponent,
+    DropdownComponent
   ],
   imports: [
     CommonModule,
-    ButtonModule
+    ButtonModule,
+    DropdownModule,
+    FormsModule
   ],
   exports: [
     LoadingWaveComponent,
-    ButtonComponent
+    ButtonComponent,
+    DropdownComponent
   ]
 })
 export class UiLibsModule { }

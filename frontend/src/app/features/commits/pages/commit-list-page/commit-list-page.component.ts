@@ -4,6 +4,7 @@ import { AuthService } from '../../../../service/auth.service';
 import { RepositorySearchForm } from './form/repository-search.form';
 import { TimeUtil } from '../../../../../util/time-util';
 import { UserInfo } from '../../../../store/auth-store';
+import { SelectItem } from '../../../../ui-libs/model/select-item';
 
 @Component({
   selector: 'app-commit-list-page',
@@ -13,7 +14,8 @@ import { UserInfo } from '../../../../store/auth-store';
 export class CommitListPageComponent implements OnInit {
   repositories: RepositoryModel[];
   form: RepositorySearchForm;
-  selectedRange: Date[];
+  dateRanges: SelectItem[];
+  selectedRange: SelectItem;
   yearRange: string;
   loading = false;
 
@@ -26,14 +28,14 @@ export class CommitListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new RepositorySearchForm();
-    this.selectedRange = this.form.rangeDatesValue;
+    this.dateRanges = this.form.selectableDateRanges;
+    this.selectedRange = this.form.selectableDateRanges[0]; // TODO: 選択中アイテムとFormの兼ね合いをどうするかは要検討
     const currentYear = TimeUtil.now().getFullYear();
     this.yearRange = `${currentYear - 1}:${currentYear}`;
     this.fetch(this.form.toInput(this.locale), this.authService.currentUser);
   }
 
   submit() {
-    this.form.rangeDates.setValue(this.selectedRange);
     this.fetch(this.form.toInput(this.locale), this.authService.currentUser);
   }
 

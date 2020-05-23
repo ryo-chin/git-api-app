@@ -1,0 +1,14 @@
+<div>
+  <div class="hidden-accessible">
+    <input
+      type="text"
+      [disabled]="disabled"
+      [value]="selectedItem?.label"
+    />
+  </div>
+  <div class="hidden-accessible">
+    <select class="hidden-select-input">
+      <option *ngFor="let selectItem of selectItems" [value]="selectItem.value">{{ selectItem.label }}</option>
+    </select>
+  </div>
+</div>
