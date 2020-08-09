@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  firebase: 'dummy'
+  firebase: 'dummy',
+  firebaseMessaging: {
+    secretKey: 'dummy'
+  }
 };
 
 /*

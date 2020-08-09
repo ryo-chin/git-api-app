@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PushService } from './service/push.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private pushService: PushService,
     private router: Router
   ) {
     this.isAuthenticated$ = authService.isAuthenticated$;
@@ -25,10 +27,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.initializeFirebase();
+    Notification.requestPermission().then(() => {
+      this.pushService.getToken();
+    });
+    this.pushService.observeUpdateToken();
   }
 
   private initializeFirebase() {
     firebase.initializeApp(environment.firebase);
+    firebase.messaging().usePublicVapidKey(environment.firebaseMessaging.secretKey);
   }
 
   toggleNavBar() {

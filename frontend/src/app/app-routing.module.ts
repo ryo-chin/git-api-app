@@ -16,6 +16,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./features/commits/commits.module').then(m => m.CommitsModule)
   },
+  {
+    path: 'resale',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./features/resale/resale.module').then(m => m.ResaleModule)
+  },
 ];
 
 @NgModule({

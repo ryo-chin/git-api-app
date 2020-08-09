@@ -9,11 +9,13 @@ import { CommitListPageComponent } from './features/commits/pages/commit-list-pa
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UiLibsModule } from './ui-libs/ui-libs.module';
+import { ResaleListPageComponent } from './features/resale/pages/resale-list-page/resale-list-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CommitListPageComponent
+    CommitListPageComponent,
+    ResaleListPageComponent
   ],
   imports: [
     BrowserModule,
