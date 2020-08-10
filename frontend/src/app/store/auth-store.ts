@@ -1,6 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export class AuthStore {
+  USER_ID = 'userId';
   TOKEN_KEY = 'token';
   USER_NAME_KEY = 'userName';
   EMAIL_KEY = 'email';
@@ -12,6 +13,7 @@ export class AuthStore {
   }
 
   saveUserInfo(info: UserInfo) {
+    this.setItem(this.USER_ID, info.userId);
     this.setItem(this.TOKEN_KEY, info.token);
     this.setItem(this.EMAIL_KEY, info.email);
     this.setItem(this.USER_NAME_KEY, info.userName);
@@ -23,10 +25,15 @@ export class AuthStore {
       return null;
     }
     return {
+      userId: this.getItem(this.USER_ID),
       userName: this.getItem(this.USER_NAME_KEY),
       email: this.getItem(this.EMAIL_KEY),
       token: this.getToken()
     } as UserInfo;
+  }
+
+  getUserId() {
+    return this.getItem(this.USER_ID);
   }
 
   getToken() {
@@ -60,6 +67,7 @@ export class AuthStore {
 }
 
 export type UserInfo = {
+  userId: string,
   userName: string,
   email: string,
   token: string

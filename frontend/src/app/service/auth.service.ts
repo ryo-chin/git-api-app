@@ -30,6 +30,7 @@ export class AuthService {
       .pipe(
         filter(res => !!res.credential),
         map(res => ({
+          userId: res.user.uid,
           userName: res.additionalUserInfo.username,
           email: res.user.email,
           token: (res.credential as OAuthCredential).accessToken

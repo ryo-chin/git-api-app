@@ -26,12 +26,12 @@ export class PushService {
     this.db = firebase.firestore();
   }
 
-  getToken() {
+  getToken(userId: string) {
     this.prepareMessagingIfNeed();
     this.messaging
       .getToken().then((currentToken) => {
       if (currentToken) {
-        this.sendTokenToServer(currentToken);
+        this.sendTokenToServer(userId, currentToken);
       } else {
         // Show permission request.
         console.log('No Instance ID token available. Request permission to generate one.');
@@ -41,23 +41,22 @@ export class PushService {
     });
   }
 
-  observeUpdateToken() {
+  observeUpdateToken(userId: string) {
     this.prepareMessagingIfNeed();
     // Callback fired if Instance ID token is updated.
     this.messaging.onTokenRefresh(() => {
       this.messaging.getToken().then((refreshedToken) => {
         console.log('Token refreshed.');
         // Send Instance ID token to app server.
-        this.sendTokenToServer(refreshedToken);
+        this.sendTokenToServer(userId, refreshedToken);
       }).catch((err) => {
         console.log('Unable to retrieve refreshed token ', err);
       });
     });
   }
 
-  private sendTokenToServer(currentToken: string) {
+  private sendTokenToServer(userId: string, currentToken: string) {
     this.prepareDBIfNeed();
-    const userId = 1; // 一旦、自分が使うだけなので適当なID
     this.db.collection('pushTokens').doc(userId.toString()).set({
       token: currentToken
     }, { merge: true }).then(docRef =>

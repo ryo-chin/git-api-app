@@ -5,6 +5,7 @@ import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PushService } from './service/push.service';
+import { authStore } from './store/auth-store';
 
 @Component({
   selector: 'app-root',
@@ -27,10 +28,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.initializeFirebase();
+    const userId = authStore.getUserId();
+    if (!userId) {
+      return;
+    }
     Notification.requestPermission().then(() => {
-      this.pushService.getToken();
+      this.pushService.getToken(userId);
     });
-    this.pushService.observeUpdateToken();
+    this.pushService.observeUpdateToken(userId);
   }
 
   private initializeFirebase() {
