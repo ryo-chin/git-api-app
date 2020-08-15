@@ -26,7 +26,8 @@ import { TableComponent } from './moluclues/table/table.component';
   exports: [
     LoadingWaveComponent,
     ButtonComponent,
-    DropdownComponent
+    DropdownComponent,
+    TableComponent
   ]
 })
 export class UiLibsModule { }

@@ -11,4 +11,7 @@ ng g component features/commits/pages/commit-list-page -m
 
 # Create UI Library Component
 ng g component ui-libs/atoms/dropdown -m
+
+# Create Service
+ng g service service/resale
 ```
