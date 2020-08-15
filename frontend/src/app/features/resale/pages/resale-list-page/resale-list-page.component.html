@@ -1,1 +1,1 @@
-<app-table [items]="items" [columns]="columns"></app-table>
+<app-table [items]="items" [columns]="columns" (onRowSelect)="openProductPage($event)" selectionMode="single"></app-table>

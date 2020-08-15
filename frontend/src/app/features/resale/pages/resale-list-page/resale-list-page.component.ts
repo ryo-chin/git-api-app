@@ -18,13 +18,19 @@ export class ResaleListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.list().subscribe(res => {
-      this.items = res.map(v => ({name: v.name, onSale: v.onSale ? '販売中' : '売り切れ中'}));
+      this.items = res.map(v => ({name: v.name, onSale: v.onSale ? '販売中' : '売り切れ中', url: v.url}));
     });
   }
 
+  openProductPage($event: any) {
+    console.log($event.data);
+    const data = $event.data as ResaleItemViewData;
+    window.open(data.url);
+  }
 }
 
 interface ResaleItemViewData {
   name: string;
   onSale: string;
+  url: string;
 }

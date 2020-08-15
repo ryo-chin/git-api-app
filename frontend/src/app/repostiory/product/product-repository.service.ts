@@ -9,8 +9,20 @@ export class ProductRepository {
   }
 
   list(): Observable<Product[]> {
-    console.log('fetch list by impl class');
-    return of([]);
+    return of([
+      {
+        id: '1',
+        name: 'バーナー',
+        url: 'https://resale.com/item1',
+        onSale: false
+      },
+      {
+        id: '2',
+        name: 'メスティン',
+        url: 'https://resale.com/item2',
+        onSale: true
+      }
+    ]);
   }
 }
 

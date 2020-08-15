@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TableComponent implements OnInit {
   @Input() items: any[];
   @Input() columns: TableColumn[];
+  @Input() selectionMode = null;
+  @Output() onRowSelect = new EventEmitter<any>();
 
   constructor() {
   }
