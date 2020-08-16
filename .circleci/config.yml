@@ -38,15 +38,15 @@ jobs:
     executor: node_basic
     steps:
       - checkout
-      - setup-chrome-driver
       - node/install:
           node-version: 12.9.1
       - node/install-packages:
           app-dir: ~/project/frontend
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
+      - setup-chrome-driver
       - run:
-          command: npm run test -- --watch=false --browsers=HeadlessChrome
+          command: npm run test -- --watch=false --browsers=ChromeHeadless
           name: Run frontend tests
           working_directory: ~/project/frontend
       - notify-result-to-slack
