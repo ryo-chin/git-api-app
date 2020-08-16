@@ -7,11 +7,11 @@ commands:
     steps:
       - slack/status:
           channel: ci_notify
-          success_message: "Success!!"
+          success_message: ":circleci-pass: Success!! branch $CIRCLE_BRANCH"
       - slack/status:
           channel: ci_notify
           fail_only: true
-          failure_message: "Failed..."
+          failure_message: ":circleci-fail: Failed... branch $CIRCLE_BRANCH"
           mentions: "here"
 jobs:
   run-frontend-test:
