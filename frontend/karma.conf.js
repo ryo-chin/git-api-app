@@ -26,6 +26,12 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
+    customLaunchers: { // ref. https://angular.jp/guide/testing#chrome%E3%81%A7%E3%81%AEci%E3%83%86%E3%82%B9%E3%83%88%E7%94%A8%E3%81%ABcli%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });

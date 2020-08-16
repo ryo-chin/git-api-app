@@ -20,19 +20,6 @@ commands:
           fail_only: true
           failure_message: ":circleci-fail: Failed... branch $CIRCLE_BRANCH"
           mentions: "here"
-  setup-chrome-driver:
-    steps:
-      - run:
-          name: install chrome driver
-          command: |
-            sudo apt-get -y update
-            sudo npm install chromedriver
-            sudo rm -f /usr/local/bin/chromedriver
-            sudo cp -avf /home/circleci/project/node_modules/chromedriver/lib/chromedriver/chromedriver /usr/local/bin
-            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-            sudo apt-get -y update
-            sudo apt-get -y install google-chrome-stable
 jobs:
   run-frontend-test:
     executor: node_basic
