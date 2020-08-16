@@ -1,7 +1,16 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+jobs:
+  run-frontend-test:
+    executor: node/default
+    working_directory: ~/frontend
+    steps:
+      - node/install-packages:
+          cache-path: ~/project/frontend/node_modules
+          override-ci-command: npm install
+      - run: npm run test
 workflows:
-  node-tests:
+  run-tests:
     jobs:
-      - node/test
+      - run-frontend-test
