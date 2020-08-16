@@ -8,6 +8,7 @@ jobs:
       - checkout
       - node/install-packages:
           app-dir: ~/project/frontend
+          node-version: 12.9.1
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run: npm run test
