@@ -5,7 +5,7 @@ orbs:
 executors:
   node_basic:
     docker:
-      - image: circleci/node:12.9.1-stretch
+      - image: circleci/node:12.9.1-browsers
         environment:
           TZ: "Asia/Tokyo"
           NODE_OPTIONS: --max-old-space-size=2048
@@ -44,9 +44,8 @@ jobs:
           app-dir: ~/project/frontend
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
-      - setup-chrome-driver
       - run:
-          command: npm run test -- --watch=false --browsers=ChromeHeadless
+          command: npm run test -- --no-watch --browsers=ChromeHeadlessCI
           name: Run frontend tests
           working_directory: ~/project/frontend
       - notify-result-to-slack
