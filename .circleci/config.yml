@@ -4,9 +4,10 @@ orbs:
 jobs:
   run-frontend-test:
     executor: node/default
-    working_directory: ~/frontend
+    working_directory: ~/project/frontend
     steps:
       - node/install-packages:
+          app-dir: ~/project/frontend
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run: npm run test
