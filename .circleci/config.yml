@@ -4,7 +4,6 @@ orbs:
 jobs:
   run-frontend-test:
     executor: node/default
-    working_directory: ~/project/frontend
     steps:
       - checkout
       - node/install-packages:
