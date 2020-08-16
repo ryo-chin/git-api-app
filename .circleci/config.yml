@@ -46,7 +46,7 @@ jobs:
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
       - run:
-          command: npm run test
+          command: npm run test -- --watch=false --browsers=HeadlessChrome
           name: Run frontend tests
           working_directory: ~/project/frontend
       - notify-result-to-slack
