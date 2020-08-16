@@ -6,6 +6,7 @@ jobs:
     executor: node/default
     working_directory: ~/project/frontend
     steps:
+      - checkout
       - node/install-packages:
           app-dir: ~/project/frontend
           cache-path: ~/project/frontend/node_modules
