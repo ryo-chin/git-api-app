@@ -23,8 +23,10 @@ export class LoginPageComponent implements OnInit {
       this.router.navigateByUrl('commits');
       return;
     }
-    this.authService.authenticateIfSignedIn().subscribe(() => {
-      this.router.navigateByUrl('commits');
+    this.authService.authenticateIfSignedIn().subscribe(success => {
+      if (success) {
+        this.router.navigateByUrl('commits');
+      }
     });
   }
 

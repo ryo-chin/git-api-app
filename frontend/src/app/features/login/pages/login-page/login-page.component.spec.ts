@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginPageComponent } from './login-page.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from '../../../../service/auth.service';
+import { of } from 'rxjs';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -8,9 +11,13 @@ describe('LoginPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginPageComponent ]
+      declarations: [ LoginPageComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
+    const authService = TestBed.inject(AuthService);
+    spyOn(authService, 'authenticateIfSignedIn').and.returnValue(of(false));
+
   }));
 
   beforeEach(() => {

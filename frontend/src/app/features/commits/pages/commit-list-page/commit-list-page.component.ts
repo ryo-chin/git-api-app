@@ -40,6 +40,9 @@ export class CommitListPageComponent implements OnInit {
   }
 
   private fetch(input: RepositorySearchCondition, user: UserInfo) {
+    if (!user) {
+      return;
+    }
     this.loading = true;
     this.githubService.fetchCommits(user.token, user.userName, user.email, input).subscribe(res => {
       this.repositories = res;

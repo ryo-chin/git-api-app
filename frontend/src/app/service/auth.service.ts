@@ -24,7 +24,7 @@ export class AuthService {
     return authStore.isLoading$;
   }
 
-  authenticateIfSignedIn(): Observable<void> {
+  authenticateIfSignedIn(): Observable<boolean> {
     authStore.setLoading(true);
     return from(firebase.auth().getRedirectResult())
       .pipe(
@@ -36,6 +36,7 @@ export class AuthService {
           token: (res.credential as OAuthCredential).accessToken
         })),
         tap(user => authStore.saveUserInfo(user)),
+        map(_ => true),
         catchError(error => {
           console.log(error);
           return of(error);

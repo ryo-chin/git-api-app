@@ -32,15 +32,19 @@ export class AppComponent implements OnInit {
     if (!userId) {
       return;
     }
+    this.initializePush(userId);
+  }
+
+  initializeFirebase() {
+    firebase.initializeApp(environment.firebase);
+    firebase.messaging().usePublicVapidKey(environment.firebaseMessaging.secretKey);
+  }
+
+  initializePush(userId) {
     Notification.requestPermission().then(() => {
       this.pushService.getToken(userId);
     });
     this.pushService.observeUpdateToken(userId);
-  }
-
-  private initializeFirebase() {
-    firebase.initializeApp(environment.firebase);
-    firebase.messaging().usePublicVapidKey(environment.firebaseMessaging.secretKey);
   }
 
   toggleNavBar() {
