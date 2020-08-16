@@ -1,6 +1,18 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+  slack: circleci/slack@3.4.2
+commands:
+  notify-result-to-slack:
+    steps:
+      - slack/status:
+          channel: ci_notify
+          success_message: "Success!!"
+      - slack/status:
+          channel: ci_notify
+          fail_only: true
+          failure_message: "Failed..."
+          mentions: "here"
 jobs:
   run-frontend-test:
     executor: node/default
@@ -16,6 +28,7 @@ jobs:
           command: npm run test
           name: Run frontend tests
           working_directory: ~/project/frontend
+      - notify-result-to-slack
 workflows:
   run-tests:
     jobs:
