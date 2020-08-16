@@ -12,7 +12,10 @@ jobs:
           app-dir: ~/project/frontend
           cache-path: ~/project/frontend/node_modules
           override-ci-command: npm install
-      - run: npm run test
+      - run:
+          command: npm run tests
+          name: Run frontend test
+          working_directory: ~/project/frontend
 workflows:
   run-tests:
     jobs:
